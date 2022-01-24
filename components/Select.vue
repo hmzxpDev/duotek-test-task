@@ -1,8 +1,9 @@
 <template>
   <div>
-    <div class="select" :class="data.className">
+    <div class="select" :class="data.className" id="select">
       {{ select }}
       <fa
+        id="select"
         icon="angle-down"
         :class="angelUpClass()"
         class="select__angel-down"
@@ -12,6 +13,7 @@
       <div v-if="optionDrop">
         <div
           class="select__option"
+          id="select"
           @click="selectOptions(item)"
           v-for="item in options"
           :key="item.id"
@@ -60,6 +62,7 @@ export default {
     hideOptions(event) {
       const regExp = new RegExp(this.data.className);
       // если клик происходит по блокам селектора
+      console.dir(event.target.id);
       if (
         regExp.test(event.target.className) || // клик по основному блоку селектора
         regExp.test(event.target.className.animVal) || // клик по svg

@@ -25,7 +25,7 @@
           >Блог</nuxt-link
         >
       </div>
-      <div class="header__auth">
+      <div class="header__link-item">
         <nuxt-link to="/auth" :class="versionLink" class="header__link-item"
           >Вход и регистрация</nuxt-link
         >
@@ -72,6 +72,51 @@ export default {
   width: 100%;
   border-bottom: 1px solid #f2f2f2;
   height: 100px;
+
+  &__container {
+    height: 100%;
+    width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__name {
+    display: flex;
+  }
+
+  &__logo {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 40px;
+    font-weight: bold;
+  }
+
+  &__logo-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    font-weight: bold;
+    font-size: 33px;
+  }
+
+  &__nav-menu {
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__link-item {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+  }
 }
 .header--light-version {
   background-color: white;
@@ -79,27 +124,7 @@ export default {
 .header--dark-version {
   background: #030953;
 }
-.header__container {
-  height: 100%;
-  width: 1200px;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.header__name {
-  display: flex;
-}
-.header__logo {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  font-size: 40px;
-  font-weight: bold;
-}
+
 .header__logo--light-version {
   background-color: #030953;
   color: white;
@@ -107,29 +132,11 @@ export default {
 .header__logo--dark-version {
   background-color: white;
 }
-.header__logo-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 8px;
-  font-weight: bold;
-  font-size: 33px;
-}
 .header__logo--title_light-version {
   color: #030953;
 }
 .header__logo-title--dark-version {
   color: white;
-}
-.header__nav-menu {
-  width: 500px;
-  display: flex;
-  justify-content: space-between;
-}
-.header__link-item {
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: 600;
 }
 .header__link-item--light-version {
   color: #030953;
