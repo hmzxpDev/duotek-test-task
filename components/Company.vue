@@ -139,9 +139,10 @@ export default {
 
 <style lang="scss" scoped>
 .company {
+  display: flex;
+  justify-content: center;
   &__container {
-    width: 1140px;
-    margin: auto;
+    max-width: 1140px;
     margin-top: 44px;
     margin-bottom: 400px;
   }
@@ -253,6 +254,67 @@ export default {
     margin-top: 16px;
     color: #333333;
     font-weight: 500;
+  }
+}
+
+@media (max-width: 1220px) {
+  .company {
+    &__container {
+      margin-bottom: 0px;
+    }
+
+    &__navigation-back {
+      margin-left: 20px;
+    }
+
+    &__title {
+      margin-left: 20px;
+    }
+
+    &__content {
+      flex-direction: column-reverse;
+    }
+
+    &__left-side {
+      width: 100%;
+    }
+
+    &__headding {
+      padding: 20px;
+    }
+
+    &__description {
+      width: 100%;
+    }
+
+    &__sub-description {
+      width: 100%;
+    }
+
+    &__tag-body {
+      padding: 20px;
+    }
+
+    &__right-side {
+      flex-wrap: wrap;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      div {
+        margin-right: 20px;
+      }
+    }
+
+    &__logo {
+      width: 150px;
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+  .statistics {
+    margin-left: 20px;
   }
 }
 </style>

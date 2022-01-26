@@ -5,10 +5,19 @@
         <div class="header__logo" :class="versionLogo">L</div>
         <div class="header__logo-title" :class="verisonLogoTitle">Logo</div>
       </div>
-      <div class="header__burger-menu">
+      <div
+        class="header__burger-menu"
+        :class="burgerMenuStyle()"
+        @click="openBurgerMenu"
+      >
+        <span></span>
+        <span></span>
         <span></span>
       </div>
-      <div class="header__nav-menu">
+      <div
+        class="header__nav-menu"
+        :class="{ 'header__nav-menu--active': bugerMenuOpen }"
+      >
         <nuxt-link to="/tenders" :class="versionLink" class="header__link-item"
           >Тендеры</nuxt-link
         >
@@ -27,9 +36,10 @@
         <nuxt-link to="/blocks" :class="versionLink" class="header__link-item"
           >Блог</nuxt-link
         >
-      </div>
-      <div class="header__nav-menu header__auth">
-        <nuxt-link to="/auth" :class="versionLink" class="header__link-item"
+        <nuxt-link
+          to="/auth"
+          :class="versionLink"
+          class="header__link-item header__auth"
           >Вход и регистрация</nuxt-link
         >
       </div>
@@ -46,6 +56,8 @@ export default {
       versionLink: "",
       versionLogo: "",
       verisonLogoTitle: "",
+      versionBurgerMenu: "",
+      bugerMenuOpen: false,
     };
   },
   methods: {
@@ -55,13 +67,28 @@ export default {
         this.versionLogo = "header__logo--light-version";
         this.verisonLogoTitle = "header__logo-title--light-version";
         this.versionLink = "header__link-item--light-version";
+        this.versionBurgerMenu = "header__burger-menu--light-verison";
       }
       if (this.headerStyle === "dark") {
         this.versionBackground = "header--dark-version";
         this.versionLogo = "header__logo--dark-version";
         this.verisonLogoTitle = "header__logo-title--dark-version";
         this.versionLink = "header__link-item--dark-version";
+        this.versionBurgerMenu = "header__burger-menu--dark-verison";
       }
+    },
+    openBurgerMenu() {
+      if (document.body.style.overflow === "hidden") {
+        document.body.style.overflow = "scroll";
+      } else {
+        document.body.style.overflow = "hidden";
+      }
+      this.bugerMenuOpen = !this.bugerMenuOpen;
+    },
+    burgerMenuStyle() {
+      return this.bugerMenuOpen
+        ? `header__burger-menu--active ${this.versionBurgerMenu}`
+        : `${this.versionBurgerMenu}`;
     },
   },
   mounted() {
@@ -112,8 +139,10 @@ export default {
   &__burger-menu {
     display: none;
   }
+  &__auth {
+    margin-left: 174px;
+  }
   &__nav-menu {
-    max-width: 500px;
     a {
       margin-left: 40px;
     }
@@ -133,7 +162,17 @@ export default {
 .header--dark-version {
   background: #030953;
 }
+.header__burger-menu--light-verison {
+  span {
+    background: #030953;
+  }
+}
 
+.header__burger-menu--dark-verison {
+  span {
+    background: white;
+  }
+}
 .header__logo--light-version {
   background-color: #030953;
   color: white;
@@ -153,14 +192,80 @@ export default {
 .header__link-item--dark-version {
   color: white;
 }
-.header__link-item:hover {
-  opacity: 0.3;
-}
 .nuxt-link-active {
   opacity: 0.3;
 }
 
 .header__link-item--active {
   opacity: 0.3;
+}
+
+@media (max-width: 1100px) {
+  .header {
+    &__name {
+      z-index: 4;
+      margin-left: 20px;
+    }
+
+    &__burger-menu {
+      margin-right: 20px;
+      z-index: 4;
+      width: 40px;
+      height: 30px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      span {
+        height: 4px;
+        width: 100%;
+      }
+    }
+
+    &__burger-menu--active {
+      overflow: hidden;
+      position: relative;
+      justify-content: center;
+      span {
+        transition-duration: 0.3s;
+        position: absolute;
+        transform: rotate(45deg);
+      }
+      span:nth-child(2) {
+        display: none;
+      }
+      span:nth-child(3) {
+        transform: rotate(-45deg);
+      }
+    }
+
+    &__nav-menu {
+      display: none;
+      margin-left: 0;
+    }
+
+    &__nav-menu--active {
+      margin-top: 100px;
+      padding: 47px 0px 40px 0px;
+      display: flex;
+      flex-direction: column;
+      a {
+        color: #030953;
+        display: flex;
+        justify-content: center;
+        margin-left: 0px;
+      }
+      a:last-child {
+        padding-top: 30px;
+        border-top: 1px solid #f2f2f2;
+        margin-top: 48px;
+      }
+      background-color: white;
+      top: 0;
+      z-index: 3;
+      position: fixed;
+      width: 100vw;
+      height: 90vh;
+    }
+  }
 }
 </style>

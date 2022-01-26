@@ -105,7 +105,6 @@ export default {
     },
     getUrl() {
       const route = this.$route.query;
-      console.log(route);
       if (route.page) {
         this.currentList = route.page;
       }
@@ -131,6 +130,7 @@ export default {
   width: 9 * 40px;
   height: 40px;
   display: flex;
+  justify-content: center;
   margin-top: 20px;
   margin-bottom: 44px;
 

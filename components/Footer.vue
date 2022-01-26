@@ -192,4 +192,35 @@ export default {};
     color: #808080;
   }
 }
+
+@media (max-width: 1000px) and (min-width: 456px) {
+  .footer {
+    &__column {
+      width: 44%;
+      min-width: 190px;
+      margin-bottom: 50px;
+    }
+  }
+}
+
+@media (max-width: 456px) {
+  .footer__nav-menu {
+    justify-content: center;
+  }
+  .footer__column {
+    width: 44%;
+    min-width: 190px;
+
+    margin-bottom: 50px;
+  }
+  .footer__social-item {
+    margin-right: 5px;
+  }
+  .footer__about-project-item {
+    font-size: 8px;
+  }
+  .footer__other {
+    padding-bottom: 20px;
+  }
+}
 </style>

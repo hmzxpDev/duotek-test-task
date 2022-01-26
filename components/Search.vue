@@ -96,6 +96,7 @@ export default {
 
 <style lang="scss">
 .search {
+  margin-bottom: -120px;
   &__container {
     margin-top: 75px;
     margin: auto;
@@ -165,6 +166,44 @@ export default {
     color: #fff;
     border-top: none;
     border-left: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .search {
+    margin-bottom: 120px;
+
+    &__title {
+      display: flex;
+      justify-content: center;
+    }
+
+    &__block {
+      flex-direction: column-reverse;
+      align-items: center;
+    }
+
+    &__settings {
+      width: 70%;
+      min-width: 340px;
+    }
+  }
+  .search-form {
+    margin-top: 40px;
+    width: 70% !important;
+    min-width: 340px;
+    &__body {
+      width: 100%;
+    }
+
+    &__input {
+      width: 63%;
+      min-width: 303px;
+    }
+
+    &__button {
+      position: relative;
+    }
   }
 }
 </style>

@@ -128,13 +128,12 @@ export default {
 <style lang="scss" scoped>
 .company-list {
   &__container {
-    width: 1200px;
+    max-width: 1200px;
     margin: auto;
   }
 
   &__content {
     width: 792px;
-    margin-top: -120px;
     position: relative;
     margin-bottom: 20px;
   }
@@ -203,6 +202,65 @@ export default {
   }
   .company-list__arrow {
     display: block;
+  }
+}
+
+@media (max-width: 1100px) and (min-width: 1000px) {
+  .company-list {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 1000px) {
+  .company-list {
+    margin-top: 40px;
+    &__container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &__content {
+      min-width: 340px;
+      width: 70%;
+    }
+
+    &__item {
+      padding: 30px !important;
+      max-height: 500px;
+      height: unset;
+      width: 100%;
+      padding: 0px;
+      margin-bottom: 40px;
+    }
+
+    &__description {
+      width: 80%;
+      word-wrap: break-word;
+    }
+
+    &__tag-body {
+      flex-wrap: wrap;
+    }
+
+    &__tag {
+      margin-bottom: 5px;
+    }
+  }
+  .company-list__item:hover {
+    cursor: pointer;
+    background: rgba(3, 9, 83, 0.03);
+    border-radius: 5px;
+    .company-list__title {
+      color: #ef3e4a;
+    }
+    .company-list__tag {
+      background-color: white;
+    }
+    .company-list__arrow {
+      display: none;
+    }
   }
 }
 </style>

@@ -241,4 +241,17 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
+
+@media (max-width: 1100px) {
+  .select {
+    width: 98%;
+    &__content {
+      width: 100%;
+    }
+
+    &__option {
+      width: 98%;
+    }
+  }
+}
 </style>
