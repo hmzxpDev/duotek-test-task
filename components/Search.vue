@@ -6,6 +6,7 @@
         <form class="search-form" @submit.prevent="onSubmit">
           <div class="search-form__body">
             <input
+              v-model="inputValue"
               class="search-form__input"
               placeholder="Поиск по продуктам отрасли"
               type="text"
@@ -22,11 +23,11 @@
         <aside class="search__settings">
           <div class="search__select">
             <h4>Отрасль</h4>
-            <Select :data="dataIndustry" />
+            <Select :selectParams="getIndustry" />
           </div>
           <div class="search__select">
             <h4>Специализация</h4>
-            <Select :data="dataSpecialization" />
+            <Select :selectParams="getSpecialization" />
           </div>
         </aside>
       </div>
@@ -38,20 +39,57 @@
 export default {
   data() {
     return {
-      dataIndustry: {
-        selectName: "Вся отрасль",
-        className: "select--industry",
-      },
-      dataSpecialization: {
-        selectName: "Все специализации",
-        className: "select--specialization",
-      },
+      // значение текстового поля
+      inputValue: "",
+      // получаем с сервера данные для селектора отрослей
+      getIndustry: {},
+      // получаем с сервера данные для селектора специализации
+      getSpecialization: {},
     };
   },
   methods: {
-    onSubmit() {
-      console.log("qwe");
+    // запрос данных с сервера
+    async fetchCompanyList() {
+      const res = await fetch("http://api-test.duotek.ru/definitions?");
+      const data = await res.json();
+      // создаем обьект отрасли
+      this.getIndustry = data.Industry;
+      this.getIndustry.selectName = "Вся отрасль";
+      this.getIndustry.className = "select--industry";
+      // создаем обьект специализации
+      this.getSpecialization = data.CompanySpecialization;
+      this.getSpecialization.selectName = "Все специализации";
+      this.getSpecialization.className = "select--specialization";
     },
+
+    // отправка формы
+    onSubmit() {
+      // если инпут не пустой пушим в url данные
+      if (this.inputValue) {
+        const payload = { ...this.$route.query, search: this.inputValue };
+        this.$router.push({
+          path: "/companies",
+          query: payload,
+        });
+      }
+      // если пустой то удаляем оттуда их
+      else {
+        const payload = { ...this.$route.query };
+        delete payload.search;
+        this.$router.push({
+          path: "/companies",
+          query: payload,
+        });
+      }
+    },
+    // получаем данные из url
+    getUrl() {
+      this.inputValue = this.$route.query.search;
+    },
+  },
+  mounted() {
+    this.fetchCompanyList();
+    this.getUrl();
   },
 };
 </script>
@@ -61,7 +99,7 @@ export default {
   &__container {
     margin-top: 75px;
     margin: auto;
-    width: 1200px;
+    max-width: 1200px;
     margin-top: 75px;
   }
 

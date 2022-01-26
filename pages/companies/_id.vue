@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header :headerStyle="headerStyle" />
-    <CompanyList />
+    <Company />
     <Footer />
   </div>
 </template>
@@ -10,9 +10,10 @@
 export default {
   data() {
     return {
-      headerStyle: "light",
+      headerStyle: "dark",
     };
   },
+  mounted() {},
 };
 </script>
 

@@ -5,6 +5,9 @@
         <div class="header__logo" :class="versionLogo">L</div>
         <div class="header__logo-title" :class="verisonLogoTitle">Logo</div>
       </div>
+      <div class="header__burger-menu">
+        <span></span>
+      </div>
       <div class="header__nav-menu">
         <nuxt-link to="/tenders" :class="versionLink" class="header__link-item"
           >Тендеры</nuxt-link
@@ -25,7 +28,7 @@
           >Блог</nuxt-link
         >
       </div>
-      <div class="header__link-item">
+      <div class="header__nav-menu header__auth">
         <nuxt-link to="/auth" :class="versionLink" class="header__link-item"
           >Вход и регистрация</nuxt-link
         >
@@ -75,7 +78,7 @@ export default {
 
   &__container {
     height: 100%;
-    width: 1200px;
+    max-width: 1200px;
     margin: auto;
     display: flex;
     align-items: center;
@@ -106,8 +109,14 @@ export default {
     font-size: 33px;
   }
 
+  &__burger-menu {
+    display: none;
+  }
   &__nav-menu {
-    width: 500px;
+    max-width: 500px;
+    a {
+      margin-left: 40px;
+    }
     display: flex;
     justify-content: space-between;
   }
@@ -144,6 +153,13 @@ export default {
 .header__link-item--dark-version {
   color: white;
 }
+.header__link-item:hover {
+  opacity: 0.3;
+}
+.nuxt-link-active {
+  opacity: 0.3;
+}
+
 .header__link-item--active {
   opacity: 0.3;
 }

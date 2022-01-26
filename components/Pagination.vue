@@ -14,11 +14,16 @@
 
 <script>
 export default {
+  props: ["data"],
   data() {
     return {
+      // текущая страница
       currentList: 1,
+      // компания которые будут отрисованы
       companyRender: [],
-      getComapnyInfo: [],
+      // зафетченые компании
+      getCompanyList: [],
+      // лист с пагинацией
       paginationList: [],
     };
   },
@@ -27,13 +32,31 @@ export default {
     listIsChange(item) {
       if (item !== "...") {
         this.currentList = +item;
-        this.paginationListRender(); // запускаем ререндор листа пагинации
-        this.companyListRender(); // запускаем ререндор отрисованного листа
+        // вычисляем актуальные компании для данного листа
+        this.companyListRender();
+
+        this.updateUrl();
       }
     },
-    // метод возвращает массив пагинации
-    paginationListRender() {
-      const pagesNum = Math.round(this.getComapnyInfo.length / 10);
+    updateUrl() {
+      if (!this.$route.query.page) {
+        const payload = { ...this.$route.query, page: this.currentList };
+        this.$router.push({
+          path: "/companies",
+          query: payload,
+        });
+      } else {
+        const payload = { ...this.$route.query };
+        delete payload.page;
+        this.$router.push({
+          path: "/companies",
+          query: payload,
+        });
+      }
+    },
+    paginationListComputed() {
+      const pagesOnList = 10; // количество листов на странице
+      const pagesNum = Math.round(this.getCompanyList.length / pagesOnList);
       // если количество страниц для пагинации > 9 будет появляться ...
       if (pagesNum > 9) {
         // если выбранная страница < 5 ... будет в конце
@@ -70,19 +93,35 @@ export default {
       else {
         this.paginationList = pagesNum;
       }
+      this.companyListRender();
     },
-    // метод отрисовывает компании в зависимости от выбраного листа
+    // метод возвращает массив компаний текущего листа
     companyListRender() {
-      this.companyRender = this.getComapnyInfo.slice(
+      this.companyRender = this.getCompanyList.slice(
         (this.currentList - 1) * 10,
         (this.currentList - 1) * 10 + 10
       );
+      this.$emit("companyListRender", this.companyRender);
+    },
+    getUrl() {
+      const route = this.$route.query;
+      console.log(route);
+      if (route.page) {
+        this.currentList = route.page;
+      }
+    },
+  },
+  // следит за асинхронным запросом данных с сервера
+  watch: {
+    data() {
+      this.getCompanyList = this.data;
+      // запускаем вычисление листа пагинации
+      this.paginationListComputed();
     },
   },
   mounted() {
-    this.getCompany();
+    this.getUrl();
   },
-  update() {},
 };
 </script>
 
@@ -94,15 +133,17 @@ export default {
   display: flex;
   margin-top: 20px;
   margin-bottom: 44px;
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+  }
 }
-.pagination__item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-}
+
 .pagination__item_active {
   background: #f7f7f7;
   border-radius: 4px;
